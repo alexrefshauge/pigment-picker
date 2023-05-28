@@ -1,13 +1,14 @@
 {
   "name": "pigment-picker",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A color picker package",
   "main": "dist/index.js",
-  "module": "dist/index.m.js",
+  "module": "dist/index.mjs",
   "unpkg": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && microbundle --tsconfig tsconfig.json --no-sourcemap",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "lint": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,6 +20,21 @@
   "author": "Alexander Refshauge",
   "license": "MIT",
   "devDependencies": {
-    "microbundle": "^0.15.1"
+    "@tsconfig/recommended": "^1.0.2",
+    "@types/react": "^18.2.7",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4"
+  },
+  "files": [
+    "dist",
+    "dist/*.scss"
+  ],
+  "sideEffects": [
+    "dist/*",
+    "lib/**/style/*",
+    "*.scss"
+  ],
+  "dependencies": {
+    "react": "^18.2.0"
   }
 }
