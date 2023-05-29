@@ -3,7 +3,7 @@ import useMouse from "../../hooks/useMouse";
 
 export interface ColorSelectProps {
     hue: string;
-    selectHandler: ((red:number, green:number, blue:number) => void);
+    selectHandler: ((color:{red:number, green:number, blue:number}) => void);
 }
 
 const colorSelectStyle: CSSProperties = {
@@ -45,8 +45,8 @@ export const ColorSelect = (props: ColorSelectProps) => {
         const red:number = pixel[0];
         const green:number = pixel[1];
         const blue:number = pixel[2];
-        props.selectHandler(red, green, blue);
-    },[cursorPosition,props.hue]);
+        props.selectHandler({red:red, green:green, blue:blue});
+    },[cursorPosition.x,cursorPosition.x, props.hue]);
 
     let cursorStyle:CSSProperties = {
         left: cursorPosition.x + "px",
