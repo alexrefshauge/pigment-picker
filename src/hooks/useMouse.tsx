@@ -51,6 +51,7 @@ const useMouse = (startPos: {x:number,y:number}, offset: {x: number, y: number})
   }
 
   return {
+    isDragging,
     cursorPosition,
     handleMouseDown,
     handleMouseMove,

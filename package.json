@@ -1,9 +1,9 @@
 {
   "name": "pigment-picker",
   "version": "0.0.1",
-  "description": "A color picker package",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "description": "A color picker package for react",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
   "unpkg": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -25,7 +25,12 @@
     "tsup": "^6.7.0",
     "typescript": "^5.0.4"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexrefshauge/pigment-picker"
+  },
   "files": [
+    "src",
     "dist",
     "dist/*.scss"
   ],
