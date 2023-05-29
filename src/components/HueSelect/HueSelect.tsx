@@ -1,8 +1,7 @@
 import React, {CSSProperties, useRef, useEffect, useState } from "react";
 import useMouse from "../../hooks/useMouse";
 
-export interface ColorSelectProps {
-    hue: {red:number, green:number, blue:number};
+export interface HueSelectProps {
     selectHandler: ((color:{red:number, green:number, blue:number}) => void);
 }
 
@@ -10,7 +9,7 @@ const colorSelectStyle: CSSProperties = {
     border: "1px solid #000000",
 };
 
-export const ColorSelect = (props: ColorSelectProps) => {
+export const HueSelect = (props: HueSelectProps) => {
     const startPosition = { x: 0, y: 0 };
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -29,9 +28,8 @@ export const ColorSelect = (props: ColorSelectProps) => {
         if (!ctx) return;
         const w = canvasRef?.current?.offsetWidth ?? 0;
         const h = canvasRef?.current?.offsetHeight ?? 0;
-        let baseColor = `rgb(${props.hue.red},${props.hue.green},${props.hue.blue})`;
-        fillHueRect(ctx, baseColor, w,h);
-    }, [canvasRef, props.hue]);
+        fillHueSlider(ctx, w,h);
+    }, [canvasRef]);
 
     useEffect(() => {
         const rect:DOMRect | undefined = canvasRef?.current?.getBoundingClientRect();
@@ -47,28 +45,27 @@ export const ColorSelect = (props: ColorSelectProps) => {
         const green:number = pixel[1];
         const blue:number = pixel[2];
         props.selectHandler({red:red, green:green, blue:blue});
-    },[cursorPosition.x,cursorPosition.x, props.hue]);
+    },[cursorPosition.x,cursorPosition.x]);
 
     let cursorStyle:CSSProperties = {
-        left: cursorPosition.x + "px",
         top: cursorPosition.y + "px",
         position: "absolute",
         pointerEvents: "none",
-        borderRadius: "50%",
         backgroundColor: "#00000000",
-        transform:"translate(-50%,-50%)",
+        transform:"translate(0%,-50%)",
         outline :"1px solid #00000055",
+        boxSizing:"border-box",
     };
     let cursorSelectedStyle:CSSProperties = isDragging ? {
         transition: "0s ease-out",
         border :"2px solid #ffffffee",
-        width: "8px",
-        height: "8px",
+        width: "100%",
+        height: "6px",
     } : {
-        transition: ".2s cubic-bezier(.49,1.42,.47,1)",
+        transition: ".2s ease-out",
         border :"1px solid #ffffffee",
-        width: "2px",
-        height: "2px",
+        width: "100%",
+        height: "0px",
     };
 
     return (
@@ -77,27 +74,26 @@ export const ColorSelect = (props: ColorSelectProps) => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseUp}
         onMouseUp={handleMouseUp}
-        style={{width:"fit-content", height:"fit-content", overflow:"hidden", position:"relative"}}
+        style={{width:"fit-content", height:"fit-content", position:"relative", display:"flex", justifyContent:"center", alignItems:"center"}}
         >
-            <canvas width={255} height={255} style={colorSelectStyle} className="color-select" ref={canvasRef}/>
+            <canvas width={32} height={255} style={colorSelectStyle} className="color-select" ref={canvasRef}/>
             <div style={{...cursorStyle, ...cursorSelectedStyle}} />
         </div>
     )
 }
 
-function fillHueRect(ctx: CanvasRenderingContext2D, baseColor:string, width:number, height:number) {
+function fillHueSlider(ctx: CanvasRenderingContext2D, width:number, height:number) {
     ctx.clearRect(0,0,width,height);
-    let gradientWhite = ctx.createLinearGradient(width,0,0,0);
-    let gradientBlack = ctx.createLinearGradient(0,0,0,height);
-    gradientWhite.addColorStop(0, "#ffffff00");
-    gradientWhite.addColorStop(1, "#ffffffff");
-    gradientBlack.addColorStop(0, "#00000000");
-    gradientBlack.addColorStop(1, "#000000ff");
+    let gradientHue = ctx.createLinearGradient(0,0,0,height);
+    
+    gradientHue.addColorStop(0 / 6, "#ff0000");
+    gradientHue.addColorStop(1 / 6, "#ffff00");
+    gradientHue.addColorStop(2 / 6, "#00ff00");
+    gradientHue.addColorStop(3 / 6, "#00ffff");
+    gradientHue.addColorStop(4 / 6, "#0000ff");
+    gradientHue.addColorStop(5 / 6, "#ff00ff");
+    gradientHue.addColorStop(6 / 6, "#ff0000");
 
-    ctx.fillStyle = baseColor;
-    ctx.fillRect(0,0,width,height);
-    ctx.fillStyle = gradientWhite;
-    ctx.fillRect(0,0,width,height);
-    ctx.fillStyle = gradientBlack;
+    ctx.fillStyle = gradientHue;
     ctx.fillRect(0,0,width,height);
 }
