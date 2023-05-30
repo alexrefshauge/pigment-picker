@@ -16,7 +16,7 @@ Pigment Picker is a versatile and customizable color picker React component pack
 You can install pigment-picker using npm:
 
 ```bash
-npm install pigment-picker`
+npm install pigment-picker
 ```
 
 ## 🔨 Usage
