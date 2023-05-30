@@ -20,7 +20,8 @@
     "palette",
     "colorpalette",
     "colourpalette",
-    "react"
+    "react",
+    "ui",
   ],
   "author": "Alexander Refshauge",
   "license": "MIT",
