@@ -6,12 +6,10 @@ export interface ColorSelectProps {
     selectHandler: ((color:{red:number, green:number, blue:number}) => void);
 }
 
-const colorSelectStyle: CSSProperties = {
-    border: "1px solid #000000",
-};
-
 export const ColorSelect = (props: ColorSelectProps) => {
     const startPosition = { x: 0, y: 0 };
+    let width = 256;
+    let height = 256;
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [offsetX, setOffsetX] = useState(0);
@@ -57,16 +55,16 @@ export const ColorSelect = (props: ColorSelectProps) => {
         borderRadius: "50%",
         backgroundColor: "#00000000",
         transform:"translate(-50%,-50%)",
-        outline :"1px solid #00000055",
+        outline :"1px solid #ffffffee",
     };
     let cursorSelectedStyle:CSSProperties = isDragging ? {
         transition: "0s ease-out",
-        border :"2px solid #ffffffee",
+        border :"2px solid #00000055",
         width: "8px",
         height: "8px",
     } : {
         transition: ".2s cubic-bezier(.49,1.42,.47,1)",
-        border :"1px solid #ffffffee",
+        border :"1px solid ##00000055",
         width: "2px",
         height: "2px",
     };
@@ -77,9 +75,9 @@ export const ColorSelect = (props: ColorSelectProps) => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseUp}
         onMouseUp={handleMouseUp}
-        style={{width:"fit-content", height:"fit-content", overflow:"hidden", position:"relative"}}
+        style={{maxWidth:width+"px", maxHeight:height+"px", position:"relative"}}
         >
-            <canvas width={255} height={255} style={colorSelectStyle} className="color-select" ref={canvasRef}/>
+            <canvas width={256} height={256} ref={canvasRef} style={{borderRadius:"4px", boxShadow:"0px 2px 8px #111"}}/>
             <div style={{...cursorStyle, ...cursorSelectedStyle}} />
         </div>
     )

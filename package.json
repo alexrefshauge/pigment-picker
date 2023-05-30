@@ -1,9 +1,9 @@
 {
   "name": "pigment-picker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A color picker package for react",
-  "main": "src/index.ts",
-  "module": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "unpkg": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -13,9 +13,14 @@
   },
   "keywords": [
     "color",
+    "colour",
     "picker",
     "colorpicker",
-    "palette"
+    "colourpicker",
+    "palette",
+    "colorpalette",
+    "colourpalette",
+    "react"
   ],
   "author": "Alexander Refshauge",
   "license": "MIT",
@@ -30,7 +35,6 @@
     "url": "https://github.com/alexrefshauge/pigment-picker"
   },
   "files": [
-    "src",
     "dist",
     "dist/*.scss"
   ],
