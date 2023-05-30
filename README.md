@@ -6,11 +6,11 @@ Pigment Picker is a versatile and customizable color picker React component pack
 
 - **Responsiveness**: Pigment Picker adapts to different screen sizes and orientations, providing a consistent user experience.
 
-- **[🛠In Development] Customizable**: Customize the appearance and behavior of the color picker to suit your application's needs.
+- **[🛠 In Development] Customizable**: Customize the appearance and behavior of the color picker to suit your application's needs.
 
-- **[🛠In Development] Supports Different Color Formats**: Pigment Picker supports various color formats, including HEX, RGB, and HSL, providing flexibility for color representation.
+- **[🛠 In Development] Supports Different Color Formats**: Pigment Picker supports various color formats, including HEX, RGB, and HSL, providing flexibility for color representation.
   
-- **[🛠In Development] Color Palettes / Swatches**: Easily add color swatches or predefined color palettes for quick color selection.
+- **[🛠 In Development] Color Palettes / Swatches**: Easily add color swatches or predefined color palettes for quick color selection.
 
 ## 📦 Installation
 You can install pigment-picker using npm:
