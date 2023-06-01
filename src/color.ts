@@ -35,7 +35,7 @@ export class RGB implements IRGB {
     toHsl():HSL {
         const r = this.red/255;
         const g = this.green/255;
-        const b = this.red/255;
+        const b = this.blue/255;
         const cmax = Math.max(r,g,b);
         const cmin = Math.min(r,g,b);
         const deltaDiff = cmax - cmin;
@@ -59,13 +59,14 @@ export class RGB implements IRGB {
                     break;
             }
         }
+
         return new HSL(hue, sat, lig);
     };
 
     toHsv():HSV{
         const r = this.red/255;
         const g = this.green/255;
-        const b = this.red/255;
+        const b = this.blue/255;
         const cmax = Math.max(r,g,b);
         const cmin = Math.min(r,g,b);
         const deltaDiff = cmax - cmin;
@@ -76,7 +77,7 @@ export class RGB implements IRGB {
         if (deltaDiff == 0) { hue = 0; } else {
             switch (cmax) {
                 case r:
-                    hue = 60 * ((g - b)/deltaDiff % 6);
+                    hue = 60 * (((g - b)/deltaDiff) % 6);
                     break;
                 case g:
                     hue = 60 * ((b - r)/deltaDiff + 2);
@@ -88,13 +89,14 @@ export class RGB implements IRGB {
                     break;
             }
         }
+        
         return new HSV(hue, sat, val);
     };
 
     constructor(red:number, green:number, blue:number) {
-        if (red < 0 || red > 255) throw ColorFormatError;
-        if (green < 0 || green > 255) throw ColorFormatError;
-        if (blue < 0 || blue > 255) throw ColorFormatError;
+        if (red < 0 || red > 255) throw new ColorFormatError("Invalid value for red");
+        if (green < 0 || green > 255) throw new ColorFormatError("Invalid value for green");
+        if (blue < 0 || blue > 255) throw new ColorFormatError("Invalid value for blue");
         this.red = red, this.green=green, this.blue = blue;
     }
 }
@@ -105,9 +107,9 @@ export class HSL {
     lightness: number;
 
     constructor(hue:number, sat:number, lig:number) {
-        if (hue < 0 || hue > 360) throw ColorFormatError;
-        if (sat < 0 || sat > 1) throw ColorFormatError;
-        if (lig < 0 || lig > 1) throw ColorFormatError;
+        if (hue < 0 || hue > 360) throw new ColorFormatError("Invalid value for hue");
+        if (sat < 0 || sat > 1) throw new ColorFormatError("Invalid value for saturation");
+        if (lig < 0 || lig > 1) throw new ColorFormatError("Invalid value for lightness");
         this.hue = hue, this.saturation=sat, this.lightness = lig;
     }
 }
@@ -118,9 +120,9 @@ export class HSV {
     value: number;
 
     constructor(hue:number, sat:number, val:number) {
-        if (hue < 0 || hue > 360) throw ColorFormatError;
-        if (sat < 0 || sat > 1) throw ColorFormatError;
-        if (val < 0 || val > 1) throw ColorFormatError;
+        if (hue < 0 || hue > 360) throw new ColorFormatError("Invalid value for hue");
+        if (sat < 0 || sat > 1) throw new ColorFormatError("Invalid value for saturation");
+        if (val < 0 || val > 1) throw new ColorFormatError("Invalid value for value");
         this.hue = hue, this.saturation=sat, this.value = val;
     }
 }

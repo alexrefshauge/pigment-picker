@@ -1,12 +1,15 @@
 import React, {CSSProperties, useRef, useEffect, useState } from "react";
 import useMouse from "../../hooks/useMouse";
+import { RGB } from "../../color";
 
 export interface HueSelectProps {
-    selectHandler: ((color:{red:number, green:number, blue:number}) => void);
+    selectHandler: ((color:RGB) => void);
 }
 
 export const HueSelect = (props: HueSelectProps) => {
+    const currentHue = new RGB(255,0,0);
     const startPosition = { x: 0, y: 0 };
+    
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [offsetX, setOffsetX] = useState(0);
@@ -40,8 +43,11 @@ export const HueSelect = (props: HueSelectProps) => {
         const red:number = pixel[0];
         const green:number = pixel[1];
         const blue:number = pixel[2];
-        props.selectHandler({red:red, green:green, blue:blue});
-    },[cursorPosition.x,cursorPosition.x]);
+        currentHue.red = red;
+        currentHue.green = green;
+        currentHue.blue = blue;
+        props.selectHandler(currentHue);
+    },[cursorPosition.y]);
 
     let cursorStyle:CSSProperties = {
         top: cursorPosition.y + "px",

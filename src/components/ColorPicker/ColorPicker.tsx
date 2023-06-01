@@ -1,14 +1,15 @@
 import React, { CSSProperties, useEffect, useState } from "react";
 import { ColorSelect } from "../ColorSelect/ColorSelect";
 import { HueSelect } from "../HueSelect/HueSelect";
+import { RGB } from "../../color";
 
 export interface ColorPickerProps {
-    selectHandler: ((color:{red:number, green:number, blue:number}) => void);
+    selectHandler: ((color:RGB) => void);
 }
 
 export const ColorPicker = (props:ColorPickerProps) => {
-    const [currentHue, setCurrentHue] = useState({red:0, green:0, blue:0});
-    const [currentColor, setCurrentColor] = useState({red:0, green:0, blue:0});
+    const [currentHue, setCurrentHue] = useState(new RGB(255,0,0));
+    const [currentColor, setCurrentColor] = useState(new RGB(255,0,0));
 
     useEffect(() => {
         props.selectHandler(currentColor);
@@ -34,6 +35,11 @@ export const ColorPicker = (props:ColorPickerProps) => {
         <ColorSelect hue={currentHue} selectHandler={setCurrentColor}/>
         <div style={{width:"4px", height:"100%"}}></div>
         <HueSelect selectHandler={setCurrentHue}/>
+        <div style={{display:"flex", flexDirection:"column"}}>
+            <div style={{color:"#fff"}}>{`RGB: (${currentColor.red}:${currentColor.green}:${currentColor.blue})`}</div>
+            <div style={{color:"#fff"}}>{`HSV: ${currentColor.toHsv().hue} : ${currentColor.toHsv().saturation} : ${currentColor.toHsv().value}`}</div>
+            <div style={{color:"#fff"}}>{`HSL: ${currentColor.toHsl().hue} : ${currentColor.toHsl().saturation} : ${currentColor.toHsl().lightness}`}</div>
+        </div>
     </div>
     )
 }

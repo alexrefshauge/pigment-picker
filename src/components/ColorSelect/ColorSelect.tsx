@@ -1,13 +1,16 @@
 import React, {CSSProperties, useRef, useEffect, useState } from "react";
 import useMouse from "../../hooks/useMouse";
+import { RGB } from "../../color";
 
 export interface ColorSelectProps {
     hue: {red:number, green:number, blue:number};
-    selectHandler: ((color:{red:number, green:number, blue:number}) => void);
+    selectHandler: ((color:RGB) => void);
 }
 
 export const ColorSelect = (props: ColorSelectProps) => {
     const startPosition = { x: 0, y: 0 };
+    const currentColor = new RGB(255,255,255);
+
     let width = 256;
     let height = 256;
 
@@ -44,8 +47,11 @@ export const ColorSelect = (props: ColorSelectProps) => {
         const red:number = pixel[0];
         const green:number = pixel[1];
         const blue:number = pixel[2];
-        props.selectHandler({red:red, green:green, blue:blue});
-    },[cursorPosition.x,cursorPosition.x, props.hue]);
+        currentColor.red = red;
+        currentColor.green = green;
+        currentColor.blue = blue;
+        props.selectHandler(currentColor);
+    },[cursorPosition.x, cursorPosition.y, props.hue]);
 
     let cursorStyle:CSSProperties = {
         left: cursorPosition.x + "px",
